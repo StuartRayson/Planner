@@ -1,0 +1,18 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RichText /> should render and match snapshot with basic html input 1`] = `
+<div
+  className="example"
+>
+  <h1
+    key="0"
+  >
+    Title
+  </h1>
+  <p
+    key="1"
+  >
+    Content
+  </p>
+</div>
+`;

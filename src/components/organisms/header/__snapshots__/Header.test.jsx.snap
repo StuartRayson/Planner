@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Header /> should render and match snapshot with basic config 1`] = `
+<header
+  className="o-header"
+>
+  <div
+    className="o-header__content"
+  >
+    <Image
+      alt="React logo"
+      className="o-header__logo"
+      height={80}
+      src="logo.svg"
+    />
+    <Heading
+      className="o-header__title"
+      text="Welcome to Inviqa React Starter"
+    />
+  </div>
+  <Button
+    className="o-header__toggle"
+    onClick={[Function]}
+    variant="primary"
+  >
+    toggle 
+    <span
+      aria-label="smiling face with sunglasses"
+      role="img"
+    >
+      😎
+    </span>
+  </Button>
+</header>
+`;

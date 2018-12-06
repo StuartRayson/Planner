@@ -1,0 +1,15 @@
+@mixin clearfix {
+
+  &:after {
+    content: "";
+    display: table;
+    clear: both;
+  }
+}
+
+// If this is applied the contained text will cut off with three dots if there is not enough room.
+@mixin text-cutoff() {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

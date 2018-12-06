@@ -1,0 +1,38 @@
+@import "../../../shared/styles/settings/_colours";
+
+.o-header {
+  height: 250px;
+  padding: 20px;
+  transition: height 0.3s;
+  text-align: center;
+  background: $black;
+  color: $white;
+
+  &--closed {
+    height: 60px;
+
+    .o-header__content {
+      display: none;
+    }
+
+    .o-header__toggle {
+      display: inline-block;
+    }
+  }
+
+  &__logo {
+    animation: App-logo-spin infinite 20s linear;
+    height: 80px;
+  }
+
+  @keyframes App-logo-spin {
+
+    from {
+      transform: rotate(0deg);
+    }
+
+    to {
+      transform: rotate(360deg);
+    }
+  }
+}

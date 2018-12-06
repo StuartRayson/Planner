@@ -1,0 +1,59 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "plugins": [
+    "jsdoc",
+    "jsx-a11y",
+    "react",
+    "compat"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 8,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true,
+      "experimentalObjectRestSpread": true
+    }
+  },
+  "env": {
+    "browser": true,
+    "node": true,
+    "es6": true,
+    "jest": true
+  },
+  "rules": {
+    "array-callback-return": "off",
+    "comma-dangle": ["error", "never"],
+    "compat/compat": "error",
+    "eqeqeq": ["error", "smart"],
+    "func-names": "off",
+    "import/extensions": ["error", "never", { "jsx": "always", "json": "always" }],
+    "import/no-extraneous-dependencies": ["off", {"devDependencies": false, "optionalDependencies": false, "peerDependencies": false}],
+    "import/no-unresolved": ["error", { "ignore": ["postal"] }],
+    "jsdoc/check-param-names": "error",
+    "jsdoc/check-tag-names": "error",
+    "jsdoc/check-types": "error",
+    "jsdoc/no-undefined-types": "error",
+    "jsdoc/require-param-description": "error",
+    "jsdoc/require-param-type": "error",
+    "jsdoc/require-param": "error",
+    "jsdoc/require-returns-type": "error",
+    "jsdoc/require-param-name": "error",
+    "jsx-a11y/href-no-hash": "off",
+    "max-len": "off",
+    "no-console": ["off", { "allow": ["warn", "error"] }],
+    "no-param-reassign": "off",
+    "no-multi-spaces": ["error", { "exceptions": { "VariableDeclarator": true, "ImportDeclaration": true } }],
+    "no-unused-vars": ["error", { "args": "none" }],
+    "react/require-default-props": "off",
+    "react/jsx-filename-extension": ["error", { "extensions": [".js", ".jsx"] }],
+    "react/no-array-index-key": "off",
+    "react/react-in-jsx-scope": "off",
+    "valid-jsdoc": "error"
+  },
+  "settings": {
+    "polyfills": [
+      "fetch"
+    ]
+  }
+}

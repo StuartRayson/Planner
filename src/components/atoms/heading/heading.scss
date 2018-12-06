@@ -1,0 +1,13 @@
+@import "../../../shared/styles/settings/_colours";
+
+.a-heading {
+
+  &--h1 {
+    font-size: 2em;
+  }
+
+  &--h2 {
+    font-size: 1.6em;
+    color: $red;
+  }
+}

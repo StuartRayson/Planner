@@ -1,0 +1,24 @@
+@import "../../../shared/styles/settings/_colours";
+
+.a-button {
+  display: inline-block;
+  border: none;
+  padding: 5px 20px;
+  outline: none;
+  cursor: pointer;
+
+  &--primary {
+    background: $red;
+    color: $white;
+  }
+
+  &--secondary {
+    background: $green;
+    color: $white;
+  }
+
+  &--disabled {
+    cursor: not-allowed;
+    opacity: 0.8;
+  }
+}

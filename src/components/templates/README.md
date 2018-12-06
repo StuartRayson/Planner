@@ -1,0 +1,2 @@
+Templates are page-level objects that place components into a layout and articulate the design’s underlying content structure.  
+Another important characteristic of templates is that they focus on the page’s underlying content structure rather than the page’s final content. Design systems must account for the dynamic nature of content, so it’s very helpful to articulate important properties of components like image sizes and character lengths for headings and text passages.

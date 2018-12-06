@@ -1,0 +1,55 @@
+html,
+body,
+div,
+article,
+section,
+main,
+footer,
+header,
+form,
+fieldset,
+legend,
+pre,
+code,
+p,
+a,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+ul,
+ol,
+li,
+dl,
+dt,
+dd,
+textarea,
+input[type="email"],
+input[type="number"],
+input[type="password"],
+input[type="tel"],
+input[type="text"],
+input[type="url"] {
+  box-sizing: border-box;
+}
+
+html {
+  // Prevents iOS text size adjust after orientation change, without disabling
+  // stylelint-disable property-no-vendor-prefix
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  // stylelint-enable
+
+  // Optimize text rendering speed
+  text-rendering: optimizeSpeed;
+}
+
+body {
+  // enable font smoothing http://szafranek.net/works/articles/font-smoothing-explained/
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+

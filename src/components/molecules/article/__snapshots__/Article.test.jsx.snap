@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Article /> should render and match snapshot with basic config 1`] = `
+<article
+  className="m-article"
+>
+  <Heading
+    className="m-article__title"
+    text="title"
+    type="h2"
+  />
+  <div
+    className="m-article__body"
+  >
+    <RichText
+      html="Lorem ipsum dolor sit amet, consectetur adipiscing elit."
+    />
+  </div>
+</article>
+`;

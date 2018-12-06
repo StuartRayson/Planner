@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Image /> should render and match snapshot with basic config 1`] = `
+<img
+  alt="logo"
+  className="a-image"
+  src="../../../shared/assets/images/logo.svg"
+/>
+`;

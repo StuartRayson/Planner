@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Button /> should renders anchor tag correctly 1`] = `
+<a
+  className="a-button a-button--primary"
+  disabled={false}
+  href="/link"
+>
+  Link
+</a>
+`;
+
+exports[`<Button /> should renders button correctly 1`] = `
+<button
+  className="a-button a-button--primary"
+>
+  Submit
+</button>
+`;

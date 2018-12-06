@@ -1,0 +1,9 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Paragraph /> should render and match snapshot with basic config 1`] = `
+<p
+  className="a-paragraph"
+>
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+</p>
+`;
