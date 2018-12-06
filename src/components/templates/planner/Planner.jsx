@@ -1,112 +1,65 @@
-import React, { PureComponent } from 'react';
-import PropTypes from 'prop-types';
-
-
-import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT } from 'react-big-scheduler';
+import React, { Component } from 'react';
+import Scheduler, { SchedulerData, ViewTypes, DATE_FORMAT, DemoData } from 'react-big-scheduler';
 import 'react-big-scheduler/lib/css/style.css';
 import Moment from 'moment';
 
-import ContentApiSrvc from '../../../shared/services/contentApiSrvc';
-import Article from '../../molecules/article/Article.jsx';
-
-class Planner extends PureComponent {
+class Planner extends Component {
   constructor(props) {
     super(props);
+    const schedulerData = new SchedulerData(new Moment('2017-12-18').format(DATE_FORMAT), ViewTypes.Week);
+    schedulerData.localeMoment.locale('en');
+    console.log(DemoData);
+    schedulerData.setResources(DemoData.resources);
+    schedulerData.setEvents(DemoData.events);
 
     this.state = {
-      articles: [],
-      loading: true,
-      error: null
+      viewModel: schedulerData
     };
-
-    this.schedulerData = new SchedulerData(new Moment().format(DATE_FORMAT), ViewTypes.Week);
-
-    Moment.locale('en');
-    this.schedulerData.setLocaleMoment(Moment);
-
-    const resources = [
-      {
-        id: 'r1',
-        name: 'Resource1'
-      },
-      {
-        id: 'r2',
-        name: 'Resource2'
-      },
-      {
-        id: 'r3',
-        name: 'Resource3'
-      }
-    ];
-
-    this.schedulerData.setResources(resources);
-
-    const events = [
-      {
-        id: 1,
-        start: '2018-12-2 09:30:00',
-        end: '2018-12-9 23:30:00',
-        resourceId: 'r1',
-        title: 'I am finished',
-        bgColor: '#D9D9D9'
-      },
-      {
-        id: 2,
-        start: '2017-12-18 12:30:00',
-        end: '2017-12-26 23:30:00',
-        resourceId: 'r2',
-        title: 'I am not resizable',
-        resizable: false
-      },
-      {
-        id: 3,
-        start: '2017-12-19 12:30:00',
-        end: '2017-12-20 23:30:00',
-        resourceId: 'r3',
-        title: 'I am not movable',
-        movable: false
-      },
-      {
-        id: 4,
-        start: '2017-12-19 14:30:00',
-        end: '2017-12-20 23:30:00',
-        resourceId: 'r1',
-        title: 'I am not start-resizable',
-        startResizable: false
-      },
-      {
-        id: 5,
-        start: '2017-12-19 15:30:00',
-        end: '2017-12-20 23:30:00',
-        resourceId: 'r2',
-        title: 'R2 has recurring tasks every week on Tuesday, Friday',
-        rrule: 'FREQ=WEEKLY;DTSTART=20171219T013000Z;BYDAY=TU,FR',
-        bgColor: '#f759ab'
-      }
-    ];
-
-    this.schedulerData.setEvents(events);
-    console.log(this.schedulerData);
   }
 
-  componentDidMount() {
-    ContentApiSrvc.getArticles()
-      .then(data => this.setState({
-        articles: data,
-        loading: false,
-        error: null
-      }))
-      .catch((reason) => {
-        this.setState({
-          error: reason,
-          loading: false
-        });
+  onScrollRight = (schedulerData, schedulerContent, maxScrollLeft) => {
+    if (schedulerData.ViewTypes === ViewTypes.Day) {
+      schedulerData.next();
+      schedulerData.setEvents(DemoData.events);
+      this.setState({
+        viewModel: schedulerData
       });
+
+      schedulerContent.scrollLeft = maxScrollLeft - 10;
+    }
+  }
+
+  onScrollLeft = (schedulerData, schedulerContent, maxScrollLeft) => {
+    if (schedulerData.ViewTypes === ViewTypes.Day) {
+      schedulerData.prev();
+      schedulerData.setEvents(DemoData.events);
+      this.setState({
+        viewModel: schedulerData
+      });
+
+      schedulerContent.scrollLeft = 10;
+    }
+  }
+
+  onViewChange = (schedulerData, view) => {
+    schedulerData.setViewType(view.viewType, view.showAgenda, view.isEventPerspective);
+    schedulerData.setEvents(DemoData.events);
+    this.setState({
+      viewModel: schedulerData
+    });
+  }
+
+  onSelectDate = (schedulerData, date) => {
+    schedulerData.setDate(date);
+    schedulerData.setEvents(DemoData.events);
+    this.setState({
+      viewModel: schedulerData
+    });
   }
 
   prevClick = (schedulerData) => {
     schedulerData.prev();
-    schedulerData.setEvents(schedulerData.events);
+    schedulerData.setEvents(DemoData.events);
     this.setState({
       viewModel: schedulerData
     });
@@ -114,44 +67,103 @@ class Planner extends PureComponent {
 
   nextClick = (schedulerData) => {
     schedulerData.next();
-    schedulerData.setEvents(schedulerData.events);
+    schedulerData.setEvents(DemoData.events);
     this.setState({
       viewModel: schedulerData
     });
   }
 
-  render() {
-    return (
-      <div className="t-homepage">
-        <h1>Planner</h1>
-        <Scheduler
-          schedulerData={this.schedulerData}
-          prevClick={this.prevClick}
-          nextClick={this.nextClick}
-          onSelectDate={() => {}}
-          onViewChange={() => {}}
-          eventItemClick={() => {}}
-        />
-        <div>
-          {this.state.loading && <div style={{ textAlign: 'center', fontSize: '42px' }}><span role="img" aria-label="loading">⌛</span></div>}
-          {this.state.error && <div style={{ textAlign: 'center', fontSize: '42px' }}>{this.props.errorMessage}</div>}
+  eventClicked = (schedulerData, event) => {
+    alert(`You just clicked an event: {id: ${event.id}, title: ${event.title}}`);
+  };
 
-          {this.state.articles.map(article => (
-            <Article
-              key={article.id}
-              title={article.title}
-              content={article.body}
-            />)
-          )}
+  ops1 = (schedulerData, event) => {
+    alert(`You just executed ops1 to event: {id: ${event.id}, title: ${event.title}}`);
+  };
+
+  ops2 = (schedulerData, event) => {
+    alert(`You just executed ops2 to event: {id: ${event.id}, title: ${event.title}}`);
+  };
+
+  newEvent = (schedulerData, slotId, slotName, start, end, type, item) => {
+    if (confirm(`Do you want to create a new event? {slotId: ${slotId}, slotName: ${slotName}, start: ${start}, end: ${end}, type: ${type}, item: ${item}}`)) {
+      let newFreshId = 0;
+      schedulerData.events.forEach((i) => {
+        if (i.id >= newFreshId) {
+          newFreshId = i.id + 1;
+        }
+      });
+
+      const newEvent = {
+        id: newFreshId,
+        title: 'New event you just created',
+        start,
+        end,
+        resourceId: slotId,
+        bgColor: 'purple'
+      };
+
+      schedulerData.addEvent(newEvent);
+      this.setState({
+        viewModel: schedulerData
+      });
+    }
+  }
+
+  updateEventStart = (schedulerData, event, newStart) => {
+    if (confirm(`Do you want to adjust the start of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newStart: ${newStart}}`)) {
+      schedulerData.updateEventStart(event, newStart);
+    }
+    this.setState({
+      viewModel: schedulerData
+    });
+  }
+
+  updateEventEnd = (schedulerData, event, newEnd) => {
+    if (confirm(`Do you want to adjust the end of the event? {eventId: ${event.id}, eventTitle: ${event.title}, newEnd: ${newEnd}}`)) {
+      schedulerData.updateEventEnd(event, newEnd);
+    }
+    this.setState({
+      viewModel: schedulerData
+    });
+  }
+
+  moveEvent = (schedulerData, event, slotId, slotName, start, end) => {
+    if (confirm(`Do you want to move the event? {eventId: ${event.id}, eventTitle: ${event.title}, newSlotId: ${slotId}, newSlotName: ${slotName}, newStart: ${start}, newEnd: ${end}`)) {
+      schedulerData.moveEvent(event, slotId, slotName, start, end);
+      this.setState({
+        viewModel: schedulerData
+      });
+    }
+  }
+
+  render() {
+    window.planner = this;
+    return (
+      <div>
+        <div>
+          <Scheduler
+            schedulerData={this.state.viewModel}
+            prevClick={this.prevClick}
+            nextClick={this.nextClick}
+            onSelectDate={this.onSelectDate}
+            onViewChange={this.onViewChange}
+            eventItemClick={this.eventClicked}
+            viewEventClick={this.ops1}
+            viewEventText="Ops 1"
+            viewEvent2Text="Ops 2"
+            viewEvent2Click={this.ops2}
+            updateEventStart={this.updateEventStart}
+            updateEventEnd={this.updateEventEnd}
+            moveEvent={this.moveEvent}
+            newEvent={this.newEvent}
+            onScrollLeft={this.onScrollLeft}
+            onScrollRight={this.onScrollRight}
+          />
         </div>
       </div>
     );
   }
 }
-
-Planner.propTypes = {
-  errorMessage: PropTypes.string
-};
-
 
 export default Planner;
